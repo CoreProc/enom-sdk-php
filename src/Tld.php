@@ -2,8 +2,6 @@
 
 namespace Coreproc\Enom;
 
-use GuzzleHttp\Client;
-
 class Tld
 {
 
@@ -17,9 +15,7 @@ class Tld
     public function __construct(Enom $enom)
     {
         $this->enom = $enom;
-        $this->client = new Client([
-            'base_url' => 'https://resellertest.enom.com/interface.asp'
-        ]);
+        $this->client = $enom->getClient();
     }
 
     public function authorize(array $tlds)
@@ -56,13 +52,10 @@ class Tld
     private function doGetRequest($command, $additionalParams = [])
     {
         $params = [
-            'command'      => $command,
-            'uid'          => $this->enom->userId,
-            'pw'           => $this->enom->password,
-            'responsetype' => 'xml'
+            'command' => $command,
         ];
 
-        if (count($params)) {
+        if (count($additionalParams)) {
             $params = array_merge($params, $additionalParams);
         }
 

@@ -2,14 +2,29 @@
 
 namespace Coreproc\Enom;
 
+use GuzzleHttp\Client;
+
 class Enom
 {
-    public $userId;
-    public $password;
+
+    protected $client;
 
     public function __construct($userId, $password)
     {
-        $this->userId = $userId;
-        $this->password = $password;
+        $this->client = new Client([
+            'base_url' => 'https://resellertest.enom.com/interface.asp',
+            'defaults' => [
+                "query" => [
+                    'uid'          => $userId,
+                    'pw'           => $password,
+                    'responsetype' => 'xml'
+                ]
+            ]
+        ]);
+    }
+
+    public function getClient()
+    {
+        return $this->client;
     }
 }
