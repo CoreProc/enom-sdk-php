@@ -28,6 +28,19 @@ class Domain
         return $this->parseXMLObject($response);
     }
 
+    public function getNameSpinner($sld, $tld, array $options = [])
+    {
+        $response = $this->doGetRequest('NameSpinner', [
+            'sld'        => $sld,
+            'tld'        => $tld,
+            'UseHyphens' => $options['useHyphens'] ?: true,
+            'UseNumbers' => $options['useNumbers'] ?: true,
+            'MaxResults' => $options['maxResults'] ?: 10,
+        ]);
+
+        return $this->parseXMLObject($response->namespin);
+    }
+
     public function purchase($sld, $tld)
     {
         $response = $this->doGetRequest('Purchase', [
