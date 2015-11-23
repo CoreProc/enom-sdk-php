@@ -26,7 +26,11 @@ class Tld
 
         $response = $this->parseXMLObject($response);
 
-        return $response->tldlist->authorizetld;
+        if ($response->ErrCount > 0) {
+            throw new EnomApiException($response->errors);
+        }
+
+        return $response->tldlist;
     }
 
     public function remove(array $tlds)
@@ -37,7 +41,11 @@ class Tld
 
         $response = $this->parseXMLObject($response);
 
-        return $response->tldlist->deletetld;
+        if ($response->ErrCount > 0) {
+            throw new EnomApiException($response->errors);
+        }
+
+        return $response->tldlist;
     }
 
     public function getList()
@@ -46,7 +54,7 @@ class Tld
 
         $response = $this->parseXMLObject($response);
 
-        return $response->tldlist->tld;
+        return $response->tldlist;
     }
 
     private function doGetRequest($command, $additionalParams = [])
