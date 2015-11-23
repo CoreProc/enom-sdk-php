@@ -50,12 +50,18 @@ class Domain
         return $this->parseXMLObject($response->Attributes);
     }
 
-    public function purchase($sld, $tld)
+    public function purchase($sld, $tld, array $extendedAttributes = [])
     {
-        $response = $this->doGetRequest('Purchase', [
+        $params = [
             'sld' => $sld,
             'tld' => $tld,
-        ]);
+        ];
+
+        if (count($extendedAttributes)) {
+            $params = array_merge($params, $extendedAttributes);
+        }
+
+        $response = $this->doGetRequest('Purchase', $params);
 
         return $this->parseXMLObject($response);
     }
