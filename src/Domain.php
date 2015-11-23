@@ -41,6 +41,15 @@ class Domain
         return $this->parseXMLObject($response->namespin);
     }
 
+    public function getExtendedAttributes($tld)
+    {
+        $response = $this->doGetRequest('GetExtAttributes', [
+            'tld'        => $tld,
+        ]);
+
+        return $this->parseXMLObject($response->Attributes);
+    }
+
     public function purchase($sld, $tld)
     {
         $response = $this->doGetRequest('Purchase', [
