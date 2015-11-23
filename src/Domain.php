@@ -25,7 +25,13 @@ class Domain
             'tld' => $tld,
         ]);
 
-        return $this->parseXMLObject($response);
+        $response = $this->parseXMLObject($response);
+
+        if ($response->ErrCount > 0) {
+            throw new EnomApiException($response->errors);
+        }
+
+        return $response;
     }
 
     public function getNameSpinner($sld, $tld, array $options = [])
@@ -38,16 +44,28 @@ class Domain
             'MaxResults' => $options['maxResults'] ?: 10,
         ]);
 
-        return $this->parseXMLObject($response->namespin);
+        $response = $this->parseXMLObject($response);
+
+        if ($response->ErrCount > 0) {
+            throw new EnomApiException($response->errors);
+        }
+
+        return $response->namespin;
     }
 
     public function getExtendedAttributes($tld)
     {
         $response = $this->doGetRequest('GetExtAttributes', [
-            'tld'        => $tld,
+            'tld' => $tld,
         ]);
 
-        return $this->parseXMLObject($response->Attributes);
+        $response = $this->parseXMLObject($response);
+
+        if ( ! isset($response->Attributes)) {
+            throw new \Exception('Invalid TLD');
+        }
+
+        return $response->Attributes;
     }
 
     public function purchase($sld, $tld, array $extendedAttributes = [])
@@ -63,7 +81,13 @@ class Domain
 
         $response = $this->doGetRequest('Purchase', $params);
 
-        return $this->parseXMLObject($response);
+        $response = $this->parseXMLObject($response);
+
+        if ($response->ErrCount > 0) {
+            throw new EnomApiException($response->errors);
+        }
+
+        return $response;
     }
 
     public function getStatus($sld, $tld, $orderId)
@@ -75,7 +99,13 @@ class Domain
             'ordertype' => 'purchase',
         ]);
 
-        return $this->parseXMLObject($response);
+        $response = $this->parseXMLObject($response);
+
+        if ($response->ErrCount > 0) {
+            throw new EnomApiException($response->errors);
+        }
+
+        return $response;
     }
 
     public function getList()
@@ -99,7 +129,13 @@ class Domain
             'tld' => $tld
         ]);
 
-        return $this->parseXMLObject($response);
+        $response = $this->parseXMLObject($response);
+
+        if ($response->ErrCount > 0) {
+            throw new EnomApiException($response->errors);
+        }
+
+        return $response;
     }
 
     private function doGetRequest($command, $additionalParams = [])
