@@ -138,6 +138,58 @@ class Domain
         return $response;
     }
 
+    public function setContactInformation($sld, $tld, array $contactInfo = [])
+    {
+        $params = [
+            'sld' => $sld,
+            'tld' => $tld,
+        ];
+
+        $params = array_merge($params, $contactInfo);
+
+        $response = $this->doGetRequest('Contacts', $params);
+
+        $response = $this->parseXMLObject($response);
+
+        if ($response->ErrCount > 0) {
+            throw new EnomApiException($response->errors);
+        }
+
+        return $response;
+    }
+
+    public function getContactInformation($sld, $tld)
+    {
+        $response = $this->doGetRequest('GetContacts', [
+            'sld' => $sld,
+            'tld' => $tld,
+        ]);
+
+        $response = $this->parseXMLObject($response);
+
+        if ($response->ErrCount > 0) {
+            throw new EnomApiException($response->errors);
+        }
+
+        return $response;
+    }
+
+    public function getWhoIsContactInformation($sld, $tld)
+    {
+        $response = $this->doGetRequest('GetWhoIsContact', [
+            'sld' => $sld,
+            'tld' => $tld,
+        ]);
+
+        $response = $this->parseXMLObject($response);
+
+        if ($response->ErrCount > 0) {
+            throw new EnomApiException($response->errors);
+        }
+
+        return $response;
+    }
+
     private function doGetRequest($command, $additionalParams = [])
     {
         $params = [
