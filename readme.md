@@ -34,4 +34,66 @@ Add these lines in the `facades` array in `config/app.php`:
 Then run this command to publish the config file:
 
     php artisan vendor:publish --provider="Coreproc\Enom\Providers\EnomServiceProvider"
+    
+# Usage
+
+Set up the client
+
+    $enom = new Enom('user-id', 'password');
+
+## TLDs
+
+    $tld = new Tld($enom);
+    
+    try {
+        $tld->authorize(['com', 'net', 'io']);
+    } catch (Coreproc\Enom\EnomApiException $e) {
+        var_dump($e->getErrors());
+    }
+    
+### Methods
+
+Authorize TLDs
+
+    authorize(array $tlds)
+    
+Remove TLDs
+
+    remove(array $tlds)
+    
+Get TLD list
+
+    getList()
+    
+## Domains
+
+    $domain = new Domain($enom);
+    
+    try {
+        $domain->check('example', 'com');
+    } catch (Coreproc\Enom\EnomApiException $e) {
+        var_dump($e->getErrors());
+    }
+    
+### Methods
+
+    check($sld, $tld)
+    
+    getNameSpinner($sld, $tld, $options = [])
+    
+    getExtendedAttributes($tld)
+    
+    purchase($sld, $tld, $extendedAttributes = [])
+    
+    getStatus($sld, $tld, $orderId)
+    
+    getList()
+    
+    getInfo($sld, $tld)
+    
+    setContactInformation($sld, $tld, $contactInfo = [])
+    
+    getContactInformation($sld, $tld)
+    
+    getWhoIsContactInformation($sld, $tld)
 
