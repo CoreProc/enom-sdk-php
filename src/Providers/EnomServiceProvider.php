@@ -11,7 +11,9 @@ class EnomServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->publishes(__DIR__ . '../../config/enom.php', config_path('enom.php'));
+        $this->publishes([
+            __DIR__ . '../../config/enom.php', config_path('enom.php')
+        ]);
     }
 
     public function register()
