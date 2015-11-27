@@ -12,7 +12,9 @@ Add this on your `composer.json`:
         }
     ]
     
-# Laravel 5.x Integration
+# Usage
+
+## Laravel 5.x users
 
 Add this line in the `providers` array in `config/app.php`:
 
@@ -35,7 +37,23 @@ Then run this command to publish the config file:
 
     php artisan vendor:publish --provider="Coreproc\Enom\Providers\EnomServiceProvider"
     
-# Usage
+Set up your credentials on the published file `config/enom.php`:
+
+    <?php
+    
+    return [
+        'userId'   => env('ENOM_USER_ID', ''),
+        'password' => env('ENOM_PASSWORD', '')
+    ];
+
+You now have access to the facades `Tld` and `Domain` which you can use like so:
+
+    $tlds = Tld::getList();
+    $domains = Domain::getList();
+    
+No need to manually set up the Enom client - it's already done. Please see methods of each class below. 
+    
+## Vanilla PHP
 
 Set up the client
 
@@ -51,7 +69,7 @@ Set up the client
         var_dump($e->getErrors());
     }
     
-### Methods
+## Methods
 
 Authorize TLDs
 
@@ -75,7 +93,7 @@ Get TLD list
         var_dump($e->getErrors());
     }
     
-### Methods
+## Methods
 
     check($sld, $tld)
     
