@@ -2,6 +2,7 @@
 
 namespace Coreproc\Enom\Providers;
 
+use Coreproc\Enom\Domain;
 use Coreproc\Enom\Enom;
 use Coreproc\Enom\Tld;
 use Illuminate\Support\ServiceProvider;
