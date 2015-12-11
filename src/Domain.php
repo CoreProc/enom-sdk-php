@@ -39,9 +39,9 @@ class Domain
         $response = $this->doGetRequest('NameSpinner', [
             'sld'        => $sld,
             'tld'        => $tld,
-            'UseHyphens' => $options['useHyphens'] ?: true,
-            'UseNumbers' => $options['useNumbers'] ?: true,
-            'MaxResults' => $options['maxResults'] ?: 10,
+            'UseHyphens' => (isset($options['useHyphens'])) ? $options['useHyphens'] : true,
+            'UseNumbers' => (isset($options['useNumbers'])) ? $options['useNumbers'] : true,
+            'MaxResults' => (isset($options['maxResults'])) ? $options['maxResults'] : 10,
         ]);
 
         $response = $this->parseXMLObject($response);
