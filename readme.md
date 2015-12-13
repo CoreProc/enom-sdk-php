@@ -29,8 +29,8 @@ Add these lines in the `facades` array in `config/app.php`:
     'facades' => [
         // Other Facades
     
-        'Tld' => Coreproc\Enom\Facades\Tld::class
-        'Domain' => Coreproc\Enom\Facades\Domain::class,
+        'EnomTld' => Coreproc\Enom\Facades\EnomTld::class
+        'EnomDomain' => Coreproc\Enom\Facades\EnomDomain::class,
     ],
     
 Then run this command to publish the config file:
@@ -48,8 +48,8 @@ Set up your credentials on the published file `config/enom.php`:
 
 You now have access to the facades `Tld` and `Domain` which you can use like so:
 
-    $tlds = Tld::getList();
-    $domains = Domain::getList();
+    $tlds = EnomTld::getList();
+    $domains = EnomDomain::getList();
     
 No need to manually set up the Enom client - it's already done. Please see methods of each class below. 
     
@@ -61,7 +61,7 @@ Set up the client
 
 ## TLDs
 
-    $tld = new Tld($enom);
+    $tld = new EnomTld($enom);
     
     try {
         $tld->authorize(['com', 'net', 'io']);
@@ -85,7 +85,7 @@ Get TLD list
     
 ## Domains
 
-    $domain = new Domain($enom);
+    $domain = new EnomDomain($enom);
     
     try {
         $domain->check('example', 'com');
