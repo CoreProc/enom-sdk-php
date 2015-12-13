@@ -2,6 +2,8 @@
 
 namespace Coreproc\Enom;
 
+use Exception;
+
 class Domain
 {
 
@@ -20,52 +22,40 @@ class Domain
 
     public function check($sld, $tld)
     {
-        $response = $this->doGetRequest('check', [
-            'sld' => $sld,
-            'tld' => $tld,
-        ]);
-
-        $response = $this->parseXMLObject($response);
-
-        if ($response->ErrCount > 0) {
-            throw new EnomApiException($response->errors);
+        try {
+            return $this->enom->call('check', [
+                'sld' => $sld,
+                'tld' => $tld,
+            ]);
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        return $response;
     }
 
     public function getNameSpinner($sld, $tld, array $options = [])
     {
-        $response = $this->doGetRequest('NameSpinner', [
-            'sld'        => $sld,
-            'tld'        => $tld,
-            'UseHyphens' => (isset($options['useHyphens'])) ? $options['useHyphens'] : true,
-            'UseNumbers' => (isset($options['useNumbers'])) ? $options['useNumbers'] : true,
-            'MaxResults' => (isset($options['maxResults'])) ? $options['maxResults'] : 10,
-        ]);
-
-        $response = $this->parseXMLObject($response);
-
-        if ($response->ErrCount > 0) {
-            throw new EnomApiException($response->errors);
+        try {
+            return $this->enom->call('NameSpinner', [
+                'sld'        => $sld,
+                'tld'        => $tld,
+                'UseHyphens' => (isset($options['useHyphens'])) ? $options['useHyphens'] : true,
+                'UseNumbers' => (isset($options['useNumbers'])) ? $options['useNumbers'] : true,
+                'MaxResults' => (isset($options['maxResults'])) ? $options['maxResults'] : 10,
+            ])->namespin;
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        return $response->namespin;
     }
 
     public function getExtendedAttributes($tld)
     {
-        $response = $this->doGetRequest('GetExtAttributes', [
-            'tld' => $tld,
-        ]);
-
-        $response = $this->parseXMLObject($response);
-
-        if ( ! isset($response->Attributes)) {
-            throw new \Exception('Invalid TLD');
+        try {
+            return $this->enom->call('GetExtAttributes', [
+                'tld' => $tld,
+            ])->Attributes;
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        return $response->Attributes;
     }
 
     public function purchase($sld, $tld, array $extendedAttributes = [])
@@ -79,63 +69,55 @@ class Domain
             $params = array_merge($params, $extendedAttributes);
         }
 
-        $response = $this->doGetRequest('Purchase', $params);
-
-        $response = $this->parseXMLObject($response);
-
-        if ($response->ErrCount > 0) {
-            throw new EnomApiException($response->errors);
+        try {
+            return $this->enom->call('Purchase', $params);
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        return $response;
     }
 
     public function getStatus($sld, $tld, $orderId)
     {
-        $response = $this->doGetRequest('GetDomainStatus', [
-            'sld'       => $sld,
-            'tld'       => $tld,
-            'orderid'   => $orderId,
-            'ordertype' => 'purchase',
-        ]);
-
-        $response = $this->parseXMLObject($response);
-
-        if ($response->ErrCount > 0) {
-            throw new EnomApiException($response->errors);
+        try {
+            return $this->enom->call('GetDomainStatus', [
+                'sld'       => $sld,
+                'tld'       => $tld,
+                'orderid'   => $orderId,
+                'ordertype' => 'purchase',
+            ]);
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        return $response;
     }
 
     public function getList()
     {
-        $response = $this->doGetRequest('GetDomains');
-
-        return $response;
+        try {
+            return $this->enom->call('GetDomains');
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function getExpired()
     {
-        $response = $this->doGetRequest('GetExpiredDomains');
-
-        return $response;
+        try {
+            return $this->enom->call('GetExpiredDomains');
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function getInfo($sld, $tld)
     {
-        $response = $this->doGetRequest('GetDomainInfo', [
-            'sld' => $sld,
-            'tld' => $tld
-        ]);
-
-        $response = $this->parseXMLObject($response);
-
-        if ($response->ErrCount > 0) {
-            throw new EnomApiException($response->errors);
+        try {
+            return $this->enom->call('GetDomainInfo', [
+                'sld' => $sld,
+                'tld' => $tld
+            ]);
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        return $response;
     }
 
     public function setContactInformation($sld, $tld, array $contactInfo = [])
@@ -147,46 +129,34 @@ class Domain
 
         $params = array_merge($params, $contactInfo);
 
-        $response = $this->doGetRequest('Contacts', $params);
-
-        $response = $this->parseXMLObject($response);
-
-        if ($response->ErrCount > 0) {
-            throw new EnomApiException($response->errors);
+        try {
+            return $this->enom->call('Contacts', $params);
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        return $response;
     }
 
     public function getContactInformation($sld, $tld)
     {
-        $response = $this->doGetRequest('GetContacts', [
-            'sld' => $sld,
-            'tld' => $tld,
-        ]);
-
-        $response = $this->parseXMLObject($response);
-
-        if ($response->ErrCount > 0) {
-            throw new EnomApiException($response->errors);
+        try {
+            return $this->enom->call('GetContacts', [
+                'sld' => $sld,
+                'tld' => $tld,
+            ]);
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        return $response;
     }
 
     public function getWhoIsContactInformation($sld, $tld)
     {
-        $response = $this->doGetRequest('GetWhoIsContact', [
-            'sld' => $sld,
-            'tld' => $tld,
-        ]);
-
-        $response = $this->parseXMLObject($response);
-
-        if ($response->ErrCount > 0) {
-            throw new EnomApiException($response->errors);
+        try {
+            return $this->enom->call('GetWhoIsContact', [
+                'sld' => $sld,
+                'tld' => $tld,
+            ]);
+        } catch (Exception $e) {
+            throw $e;
         }
-
-        return $response;
     }
 }
