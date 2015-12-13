@@ -1,21 +1,12 @@
 <?php
 
-namespace Coreproc\Enom;
+namespace Coreproc\Enom\Accessors;
 
+use Coreproc\Enom\EnomAccessor;
 use Exception;
 
-class EnomCustomer
+class Customer extends EnomAccessor
 {
-
-    /**
-     * @var Enom
-     */
-    private $enom;
-
-    public function __construct(Enom $enom)
-    {
-        $this->enom = $enom;
-    }
 
     public function updatePreferences(array $params)
     {

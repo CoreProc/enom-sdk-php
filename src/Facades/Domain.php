@@ -4,7 +4,7 @@ namespace Coreproc\Enom\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
-class EnomDomain extends Facade
+class Domain extends Facade
 {
 
     public static function getFacadeAccessor()

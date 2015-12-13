@@ -29,8 +29,8 @@ Add these lines in the `facades` array in `config/app.php`:
     'facades' => [
         // Other Facades
     
-        'EnomTld' => Coreproc\Enom\Facades\EnomTld::class
-        'EnomDomain' => Coreproc\Enom\Facades\EnomDomain::class,
+        'EnomTld' => Coreproc\Enom\Facades\Tld::class
+        'EnomDomain' => Coreproc\Enom\Facades\Domain::class,
     ],
     
 Then run this command to publish the config file:
@@ -61,7 +61,7 @@ Set up the client
 
 ## TLDs
 
-    $tld = new EnomTld($enom);
+    $tld = new Tld($enom);
     
     try {
         $tld->authorize(['com', 'net', 'io']);
@@ -85,7 +85,7 @@ Get TLD list
     
 ## Domains
 
-    $domain = new EnomDomain($enom);
+    $domain = new Domain($enom);
     
     try {
         $domain->check('example', 'com');

@@ -3,8 +3,8 @@
 namespace Coreproc\Enom\Providers;
 
 use Coreproc\Enom\Enom;
-use Coreproc\Enom\EnomDomain;
-use Coreproc\Enom\EnomTld;
+use Coreproc\Enom\Domain;
+use Coreproc\Enom\Tld;
 use Illuminate\Support\ServiceProvider;
 
 class EnomServiceProvider extends ServiceProvider
@@ -22,11 +22,11 @@ class EnomServiceProvider extends ServiceProvider
         $enom = new Enom(config('enom.userId'), config('enom.password'), config('enom.develop', false));
 
         $this->app->bind('enomtld', function () use ($enom) {
-            return new EnomTld($enom);
+            return new Tld($enom);
         });
 
         $this->app->bind('enomdomain', function () use ($enom) {
-            return new EnomDomain($enom);
+            return new Domain($enom);
         });
     }
 
