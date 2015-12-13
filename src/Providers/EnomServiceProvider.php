@@ -19,7 +19,7 @@ class EnomServiceProvider extends ServiceProvider
 
     public function register()
     {
-        $enom = new Enom(config('enom.userId'), config('enom.password'));
+        $enom = new Enom(config('enom.userId'), config('enom.password'), config('enom.develop', false));
 
         $this->app->bind('tld', function () use ($enom) {
             return new Tld($enom);
