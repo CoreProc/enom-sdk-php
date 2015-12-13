@@ -4,7 +4,7 @@ namespace Coreproc\Enom;
 
 use Exception;
 
-class Domain
+class EnomDomain
 {
 
     /**
@@ -12,12 +12,9 @@ class Domain
      */
     private $enom;
 
-    private $client;
-
     public function __construct(Enom $enom)
     {
         $this->enom = $enom;
-        $this->client = $enom->getClient();
     }
 
     public function check($sld, $tld)
