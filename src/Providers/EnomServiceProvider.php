@@ -2,9 +2,9 @@
 
 namespace Coreproc\Enom\Providers;
 
+use Coreproc\Enom\Accessors\Domain;
+use Coreproc\Enom\Accessors\Tld;
 use Coreproc\Enom\Enom;
-use Coreproc\Enom\Domain;
-use Coreproc\Enom\Tld;
 use Illuminate\Support\ServiceProvider;
 
 class EnomServiceProvider extends ServiceProvider
