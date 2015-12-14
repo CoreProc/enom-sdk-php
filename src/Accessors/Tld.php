@@ -34,7 +34,7 @@ class Tld extends EnomAccessor
     public function getList()
     {
         try {
-            return $this->enom->call('GetTLDList')->tldlist;
+            return $this->enom->call('GetTLDList')->tldlist->tld;
         } catch (Exception $e) {
             throw $e;
         }

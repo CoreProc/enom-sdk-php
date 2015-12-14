@@ -35,12 +35,21 @@ class Domain extends EnomAccessor
         }
     }
 
+    public function getDomainPricing()
+    {
+        try {
+            return $this->enom->call('PE_GETDOMAINPRICING');
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
     public function getExtendedAttributes($tld)
     {
         try {
             return $this->enom->call('GetExtAttributes', [
                 'tld' => $tld,
-            ])->Attributes;
+            ]);
         } catch (Exception $e) {
             throw $e;
         }
