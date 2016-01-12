@@ -3,7 +3,7 @@
 Add this on your `composer.json`:
 
     "require": {
-        "coreproc/enom-sdk-php": "dev-master"
+        "coreproc/enom-sdk": "dev-master"
     },
     "repositories": [
         {
