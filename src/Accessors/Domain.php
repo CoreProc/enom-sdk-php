@@ -156,4 +156,108 @@ class Domain extends EnomAccessor
             throw $e;
         }
     }
+
+    public function checkNSStatus($nameServer)
+    {
+        try {
+            return $this->enom->call('CheckNSStatus', [
+                'CheckNSName' => $nameServer
+            ]);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function deleteNameServer($nameServer)
+    {
+        try {
+            return $this->enom->call('DeleteNameServer', [
+                'ns' => $nameServer
+            ]);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function getDNS($sld, $tld)
+    {
+        try {
+            return $this->enom->call('GetDNS', [
+                'sld' => $sld,
+                'tld' => $tld,
+            ]);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function getDNSStatus($sld, $tld)
+    {
+        try {
+            return $this->enom->call('GetDNSStatus', [
+                'sld' => $sld,
+                'tld' => $tld,
+            ]);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function modifyNS($sld, $tld, array $nameServers = [])
+    {
+        try {
+            $params = [
+                'sld' => $sld,
+                'tld' => $tld,
+            ];
+
+            array_merge($params, $nameServers);
+
+            return $this->enom->call('modifyNS', $params);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function modifyNSHosting($sld, $tld, array $nameServers = [])
+    {
+        try {
+            $params = [
+                'sld' => $sld,
+                'tld' => $tld,
+            ];
+
+            array_merge($params, $nameServers);
+
+            return $this->enom->call('modifyNSHosting', $params);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function registerNameServer($nameServer, $ipAddress)
+    {
+        try {
+            return $this->enom->call('RegisterNameServer', [
+                'Add'=> 'true',
+                'NSName' => $nameServer,
+                'IP' => $ipAddress
+            ]);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function updateNameServer($nameServer, $oldIpAddress, $newIpAddress)
+    {
+        try {
+            return $this->enom->call('UpdateNameServer', [
+                'NS' => $nameServer,
+                'OldIP' => $oldIpAddress,
+                'NewIP' => $newIpAddress
+            ]);
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }
