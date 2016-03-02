@@ -260,4 +260,14 @@ class Domain extends EnomAccessor
             throw $e;
         }
     }
+
+    public function getCustomerPreferences()
+    {
+        try {
+            return $this->enom->call('GetCusPreferences');
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+    
 }
