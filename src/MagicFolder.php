@@ -2,7 +2,7 @@
 
 namespace Coreproc\Enom;
 
-class MagicFolder
+class MagicFolder extends Service
 {
 
     /**

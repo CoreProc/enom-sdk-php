@@ -2,7 +2,7 @@
 
 namespace Coreproc\Enom;
 
-class Domain
+class Domain extends Service
 {
 
     /**
@@ -190,21 +190,4 @@ class Domain
         return $response;
     }
 
-    private function doGetRequest($command, $additionalParams = [])
-    {
-        $params = [
-            'command' => $command,
-        ];
-
-        if (count($additionalParams)) {
-            $params = array_merge($params, $additionalParams);
-        }
-
-        return $this->client->get('', ['query' => $params])->xml();
-    }
-
-    private function parseXMLObject($object)
-    {
-        return json_decode(json_encode($object));
-    }
 }
